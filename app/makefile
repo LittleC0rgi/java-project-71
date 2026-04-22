@@ -4,7 +4,10 @@ build-and-run:
 	./gradlew installDist
 	./build/install/app/bin/app
 
-run:
+help:
+	./build/install/app/bin/app -h
+
+run-dist:
 	./build/install/app/bin/app
 
 build:
