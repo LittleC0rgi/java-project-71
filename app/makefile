@@ -2,7 +2,7 @@
 
 build-and-run:
 	./gradlew installDist
-	./build/install/app/bin/app
+	./build/install/app/bin/app -h
 
 help:
 	./build/install/app/bin/app -h
