@@ -2,12 +2,17 @@ package hexlet.code;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import tools.jackson.databind.ObjectMapper;
 
 @Command(name = "gendiff", description = "Compares two configuration files and shows a difference.",
         mixinStandardHelpOptions = true, version = "1.0")
@@ -29,11 +34,44 @@ public class App implements Callable<Integer> {
     }
 
     public static Map<String, Object> parse(String content) throws Exception {
-        return Map.of();
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(content, Map.class);
     }
 
     public static String readFile(Path path) throws Exception {
         return Files.readString(path);
+    }
+
+    public static String buildDiff(Map<String, Object> data1, Map<String, Object> data2) {
+        var body = Stream.concat(data1.keySet().stream(), data2.keySet().stream()) //
+                .distinct() //
+                .sorted() //
+                .flatMap(key -> buildLines(key, data1, data2).stream())
+                .collect(Collectors.joining("\n"));
+
+        return "{\n" + body + "\n}";
+    }
+
+    private static List<String> buildLines(String key, Map<String, Object> d1,
+            Map<String, Object> d2) {
+        boolean in1 = d1.containsKey(key);
+        boolean in2 = d2.containsKey(key);
+
+        if (in1 && !in2) {
+            return List.of("  - " + key + ": " + d1.get(key));
+        }
+        if (!in1 && in2) {
+            return List.of("  + " + key + ": " + d2.get(key));
+        }
+
+        Object v1 = d1.get(key);
+        Object v2 = d2.get(key);
+
+        if (Objects.equals(v1, v2)) {
+            return List.of("    " + key + ": " + v1);
+        }
+
+        return List.of("  - " + key + ": " + v1, "  + " + key + ": " + v2);
     }
 
     @Override
@@ -42,8 +80,8 @@ public class App implements Callable<Integer> {
             var data1 = getData(filepath1);
             var data2 = getData(filepath2);
 
-            System.out.println(data1);
-            System.out.println(data2);
+            String diff = buildDiff(data1, data2);
+            System.out.println(diff);
 
             return 0;
         } catch (Exception e) {
