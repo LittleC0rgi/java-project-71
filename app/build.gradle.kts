@@ -1,6 +1,7 @@
 plugins {
     id("application")
     id("checkstyle")
+    id "org.sonarqube" version "7.2.3.7755"
 }
 
 group = "hexlet.code"
@@ -26,4 +27,11 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+sonar {
+  properties {
+    property "sonar.projectKey", "littlec0rgi_secondapp"
+    property "sonar.organization", "littlec0rgi"
+  }
 }
