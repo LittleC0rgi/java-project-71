@@ -13,3 +13,6 @@ run-dist:
 build:
 	rm -rf build
 	./gradlew build
+
+test:
+	./gradlew test
