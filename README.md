@@ -4,4 +4,10 @@
 
 ### Пример работы пакета
 
-![example](images/example.png)
+#### JSON
+
+![example](images/emampleJSON.png)
+
+#### YAML
+
+![example](images/emampleYAML.png)

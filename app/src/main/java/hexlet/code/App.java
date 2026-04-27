@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import tools.jackson.databind.ObjectMapper;
 
 @Command(name = "gendiff", description = "Compares two configuration files and shows a difference.",
         mixinStandardHelpOptions = true, version = "1.0")
@@ -27,20 +25,6 @@ public class App implements Callable<Integer> {
     @Option(names = {"-f", "--format"}, description = "output format [default: stylish]",
             paramLabel = "format", arity = "1")
     private String format = "stylish";
-
-    public static Map<String, Object> getData(Path path) throws Exception {
-        String content = readFile(path);
-        return parse(content);
-    }
-
-    public static Map<String, Object> parse(String content) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(content, Map.class);
-    }
-
-    public static String readFile(Path path) throws Exception {
-        return Files.readString(path);
-    }
 
     public static String buildDiff(Map<String, Object> data1, Map<String, Object> data2) {
         var body = Stream.concat(data1.keySet().stream(), data2.keySet().stream()) //
@@ -77,8 +61,8 @@ public class App implements Callable<Integer> {
     @Override
     public Integer call() {
         try {
-            var data1 = getData(filepath1);
-            var data2 = getData(filepath2);
+            var data1 = Parser.getData(filepath1);
+            var data2 = Parser.getData(filepath2);
 
             String diff = buildDiff(data1, data2);
             System.out.println(diff);

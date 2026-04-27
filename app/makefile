@@ -10,6 +10,12 @@ help:
 run-dist:
 	./build/install/app/bin/app
 
+run-yaml:
+	./build/install/app/bin/app ./files/yaml/file1.yaml ./files/yaml/file2.yaml
+
+run-json:
+	./build/install/app/bin/app ./files/json/file1.json ./files/json/file2.json
+
 build:
 	rm -rf build
 	./gradlew build
