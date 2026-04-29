@@ -18,13 +18,13 @@ public class DifferTest {
     }
 
     @Test
-    void testEmptyMaps() {
+    void testEmptyMaps() throws Exception {
         var result = Differ.generate(new HashMap<>(), new HashMap<>());
         assertEquals("{\n\n}", result);
     }
 
     @Test
-    void testIdenticalMaps() {
+    void testIdenticalMaps() throws Exception {
         var data1 = map("host", "hexlet.io", "timeout", 50);
 
         var data2 = map("host", "hexlet.io", "timeout", 50);
@@ -41,7 +41,7 @@ public class DifferTest {
     }
 
     @Test
-    void testRemovedKey() {
+    void testRemovedKey() throws Exception {
         var data1 = map("host", "hexlet.io", "timeout", 50);
 
         var data2 = map("host", "hexlet.io");
@@ -58,7 +58,7 @@ public class DifferTest {
     }
 
     @Test
-    void testAddedKey() {
+    void testAddedKey() throws Exception {
         var data1 = map("host", "hexlet.io");
 
         var data2 = map("host", "hexlet.io", "timeout", 50);
@@ -75,7 +75,7 @@ public class DifferTest {
     }
 
     @Test
-    void testChangedValue() {
+    void testChangedValue() throws Exception {
         var data1 = map("timeout", 50);
 
         var data2 = map("timeout", 20);
@@ -92,7 +92,7 @@ public class DifferTest {
     }
 
     @Test
-    void testMixedCase() {
+    void testMixedCase() throws Exception {
         var data1 = map("host", "hexlet.io", "timeout", 50, "proxy", "123.234.53.22");
 
         var data2 = map("timeout", 20, "verbose", true, "host", "hexlet.io");
@@ -112,7 +112,7 @@ public class DifferTest {
     }
 
     @Test
-    void testPlainFormat() {
+    void testPlainFormat() throws Exception {
         var data1 = map("host", "hexlet.io", "timeout", 50, "proxy", "123.234.53.22");
 
         var data2 = map("timeout", 20, "verbose", true, "host", "hexlet.io");
@@ -129,7 +129,7 @@ public class DifferTest {
     }
 
     @Test
-    void testJsonFormat() {
+    void testJsonFormat() throws Exception {
         var data1 = map("host", "hexlet.io", "timeout", 50, "proxy", "123.234.53.22");
 
         var data2 = map("timeout", 20, "verbose", true, "host", "hexlet.io");
@@ -138,25 +138,25 @@ public class DifferTest {
 
         String expected = """
                 {
-                  "host": {
-                    "status": "unchanged",
-                    "value": "hexlet.io"
+                  "host" : {
+                    "status" : "unchanged",
+                    "value" : "hexlet.io"
                   },
-                  "proxy": {
-                    "status": "removed",
-                    "value": "123.234.53.22"
+                  "proxy" : {
+                    "status" : "removed",
+                    "value" : "123.234.53.22"
                   },
-                  "timeout": {
-                    "status": "updated",
-                    "oldValue": 50,
-                    "newValue": 20
+                  "timeout" : {
+                    "status" : "updated",
+                    "oldValue" : 50,
+                    "newValue" : 20
                   },
-                  "verbose": {
-                    "status": "added",
-                    "value": true
+                  "verbose" : {
+                    "status" : "added",
+                    "value" : true
                   }
                 }""";
-        
+
         assertEquals(expected, result);
     }
 }

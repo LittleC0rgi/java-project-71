@@ -5,7 +5,7 @@ public enum FormatType {
     JSON,
     PLAIN;
 
-    public static FormatType from(String value) {
+    public static FormatType from(String value) throws Exception {
         return switch (value.toLowerCase()) {
             case "stylish" -> STYLISH;
             case "plain" -> PLAIN;

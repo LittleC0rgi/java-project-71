@@ -47,7 +47,7 @@ public class Differ {
 
     public static String generate(Map<String, Object> d1,
                                   Map<String, Object> d2,
-                                  FormatType format) {
+                                  FormatType format) throws Exception {
 
         var tree = buildTree(d1, d2);
         return Formatter.format(format, tree);
