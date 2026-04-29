@@ -37,8 +37,9 @@ public class App implements Callable<Integer> {
         try {
             var data1 = Parser.getData(filepath1);
             var data2 = Parser.getData(filepath2);
+            var type = FormatType.from(format);
 
-            String diff = Differ.generate(data1, data2, FormatType.from(format));
+            String diff = Differ.generate(data1, data2, type);
             System.out.println(diff);
 
             return 0;

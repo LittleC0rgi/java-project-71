@@ -9,6 +9,7 @@ public class Formatter {
         return switch (type) {
             case STYLISH -> StylishFormatter.format(tree);
             case PLAIN -> PlainFormatter.format(tree);
+            case JSON -> JsonFormatter.format(tree);
         };
     }
 }

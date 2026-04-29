@@ -127,4 +127,36 @@ public class DifferTest {
 
         assertEquals(expected, result);
     }
+
+    @Test
+    void testJsonFormat() {
+        var data1 = map("host", "hexlet.io", "timeout", 50, "proxy", "123.234.53.22");
+
+        var data2 = map("timeout", 20, "verbose", true, "host", "hexlet.io");
+
+        var result = Differ.generate(data1, data2, FormatType.JSON);
+
+        String expected = """
+                {
+                  "host": {
+                    "status": "unchanged",
+                    "value": "hexlet.io"
+                  },
+                  "proxy": {
+                    "status": "removed",
+                    "value": "123.234.53.22"
+                  },
+                  "timeout": {
+                    "status": "updated",
+                    "oldValue": 50,
+                    "newValue": 20
+                  },
+                  "verbose": {
+                    "status": "added",
+                    "value": true
+                  }
+                }""";
+        
+        assertEquals(expected, result);
+    }
 }
