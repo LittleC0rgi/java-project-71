@@ -40,10 +40,7 @@ public class Differ {
             return List.of(new DiffNode(key, DiffType.UNCHANGED, v1, null));
         }
 
-        return List.of(
-                new DiffNode(key, DiffType.REMOVED, v1, null),
-                new DiffNode(key, DiffType.ADDED, null, v2)
-        );
+        return List.of(new DiffNode(key, DiffType.UPDATED, v1, v2));
     }
 
     public static String generate(Map<String, Object> d1,

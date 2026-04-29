@@ -20,7 +20,8 @@ public class StylishFormatter {
             case ADDED -> "  + " + node.getKey() + ": " + node.getNewValue();
             case REMOVED -> "  - " + node.getKey() + ": " + node.getOldValue();
             case UNCHANGED -> "    " + node.getKey() + ": " + node.getOldValue();
-            default -> throw new RuntimeException("Unknown type: " + node.getType());
+            case UPDATED -> "  - " + node.getKey() + ": " + node.getOldValue() + "\n"
+                    + "  + " + node.getKey() + ": " + node.getNewValue();
         };
     }
 }
