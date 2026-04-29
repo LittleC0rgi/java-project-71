@@ -16,6 +16,9 @@ run-yaml:
 run-json:
 	./build/install/app/bin/app ./files/json/file1.json ./files/json/file2.json
 
+run-json-2:
+	./build/install/app/bin/app ./files/json/file3.json ./files/json/file4.json
+
 build:
 	rm -rf build
 	./gradlew build
