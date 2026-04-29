@@ -1,5 +1,7 @@
 package hexlet.code.diff;
 
+import hexlet.code.formatter.FormatType;
+import hexlet.code.formatter.Formatter;
 import hexlet.code.formatter.StylishFormatter;
 
 import java.util.List;
@@ -45,14 +47,10 @@ public class Differ {
 
     public static String generate(Map<String, Object> d1,
                                   Map<String, Object> d2,
-                                  String format) {
+                                  FormatType format) {
 
         var tree = buildTree(d1, d2);
-
-        return switch (format) {
-            case "stylish" -> StylishFormatter.format(tree);
-            default -> throw new RuntimeException("Unknown format: " + format);
-        };
+        return Formatter.format(format, tree);
     }
 
     public static String generate(Map<String, Object> d1,

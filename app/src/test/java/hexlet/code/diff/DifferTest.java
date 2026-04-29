@@ -1,5 +1,6 @@
 package hexlet.code.diff;
 
+import hexlet.code.formatter.FormatType;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -96,7 +97,7 @@ public class DifferTest {
 
         var data2 = map("timeout", 20, "verbose", true, "host", "hexlet.io");
 
-        var result = Differ.generate(data1, data2);
+        var result = Differ.generate(data1, data2, FormatType.STYLISH);
 
         String expected = """
                 {
@@ -106,6 +107,23 @@ public class DifferTest {
                   + timeout: 20
                   + verbose: true
                 }""";
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testPlainFormat() {
+        var data1 = map("host", "hexlet.io", "timeout", 50, "proxy", "123.234.53.22");
+
+        var data2 = map("timeout", 20, "verbose", true, "host", "hexlet.io");
+
+        var result = Differ.generate(data1, data2, FormatType.PLAIN);
+
+        String expected = """
+                Property 'proxy' was removed
+                Property 'timeout' was updated. From 50 to 20
+                Property 'verbose' was added with value: true
+                """;
 
         assertEquals(expected, result);
     }

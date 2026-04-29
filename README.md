@@ -6,7 +6,11 @@
 
 #### JSON
 
-![example](images/emampleJSON.png)
+![example json 1](images/emampleJSON.png)
+
+![example json 2](images/emampleJSON2.png)
+
+![example json 3](images/emampleJSON3.png)
 
 #### YAML
 

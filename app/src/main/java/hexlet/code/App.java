@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.diff.Differ;
+import hexlet.code.formatter.FormatType;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -37,7 +38,7 @@ public class App implements Callable<Integer> {
             var data1 = Parser.getData(filepath1);
             var data2 = Parser.getData(filepath2);
 
-            String diff = Differ.generate(data1, data2, format);
+            String diff = Differ.generate(data1, data2, FormatType.from(format));
             System.out.println(diff);
 
             return 0;
