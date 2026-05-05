@@ -1,6 +1,6 @@
 package hexlet.code;
 
-public class DiffNode {
+public final class DiffNode {
     private final String key;
     private final DiffType type;
     private final Object oldValue;
