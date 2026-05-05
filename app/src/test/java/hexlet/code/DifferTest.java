@@ -33,6 +33,15 @@ class DifferTest {
     }
 
     @Test
+    void testGenerateStylishByDefault() throws Exception {
+        String result = Differ.generate(
+                getFilePath("file1.json"),
+                getFilePath("file2.json")
+        );
+        assertEquals(readExpected("expected_stylish.txt"), result);
+    }
+
+    @Test
     void testGeneratePlain() throws Exception {
         String result = Differ.generate(
                 getFilePath("file1.json"),

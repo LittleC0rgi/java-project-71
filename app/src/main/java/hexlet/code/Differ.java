@@ -52,4 +52,11 @@ public class Differ {
         var tree = buildTree(d1, d2);
         return Formatter.format(type, tree);
     }
+
+    public static String generate(String filePath1, String filePath2) throws Exception {
+        Map<String, Object> d1 = Parser.getData(Path.of(filePath1));
+        Map<String, Object> d2 = Parser.getData(Path.of(filePath2));
+        var tree = buildTree(d1, d2);
+        return Formatter.format(FormatType.STYLISH, tree);
+    }
 }
