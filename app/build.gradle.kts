@@ -43,6 +43,10 @@ tasks.jacocoTestReport {
     }
 }
 
+tasks.sonar {
+    dependsOn(tasks.jacocoTestReport)
+}
+
 sonar {
     properties {
         property("sonar.projectKey", "littlec0rgi_secondapp")
