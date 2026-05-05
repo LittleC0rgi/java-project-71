@@ -41,6 +41,9 @@ public class JsonFormatter {
                 putValue(obj, "oldValue", node.getOldValue());
                 putValue(obj, "newValue", node.getNewValue());
             }
+            default -> throw new IllegalStateException(
+                    "Unexpected node type: " + node.getType()
+            );
         }
 
         return obj;
