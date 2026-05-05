@@ -1,4 +1,4 @@
-package hexlet.code.diff;
+package hexlet.code;
 
 public enum DiffType {
     ADDED,

@@ -1,6 +1,6 @@
 package hexlet.code.formatter;
 
-import hexlet.code.diff.DiffNode;
+import hexlet.code.DiffNode;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ObjectNode;
 
