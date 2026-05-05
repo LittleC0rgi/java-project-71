@@ -7,12 +7,10 @@ import java.util.stream.Collectors;
 
 public class PlainFormatter {
     public static String format(List<DiffNode> tree) {
-        String body = tree.stream()
+        return tree.stream()
                 .map(PlainFormatter::formatNode)
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.joining("\n"));
-
-        return body + "\n";
     }
 
     private static String formatNode(DiffNode node) {
