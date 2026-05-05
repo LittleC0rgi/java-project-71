@@ -2,7 +2,6 @@ package hexlet.code;
 
 import hexlet.code.formatter.FormatType;
 import hexlet.code.formatter.Formatter;
-import hexlet.code.formatter.StylishFormatter;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -46,32 +45,11 @@ public class Differ {
         return List.of(new DiffNode(key, DiffType.UPDATED, v1, v2));
     }
 
-    public static String generate(String filePath1, String filePath2) throws Exception {
-        Map<String, Object> d1 = Parser.getData(Path.of(filePath1));
-        Map<String, Object> d2 = Parser.getData(Path.of(filePath2));
-        var tree = buildTree(d1, d2);
-        return StylishFormatter.format(tree);
-    }
-
     public static String generate(String filePath1, String filePath2, String format) throws Exception {
         Map<String, Object> d1 = Parser.getData(Path.of(filePath1));
         Map<String, Object> d2 = Parser.getData(Path.of(filePath2));
+        var type = FormatType.from(format);
         var tree = buildTree(d1, d2);
-        return Formatter.format(FormatType.valueOf(format.toUpperCase()), tree);
-    }
-
-    public static String generate(Map<String, Object> d1,
-                                  Map<String, Object> d2,
-                                  FormatType format) throws Exception {
-
-        var tree = buildTree(d1, d2);
-        return Formatter.format(format, tree);
-    }
-
-    public static String generate(Map<String, Object> d1,
-                                  Map<String, Object> d2) {
-
-        var tree = buildTree(d1, d2);
-        return StylishFormatter.format(tree);
+        return Formatter.format(type, tree);
     }
 }

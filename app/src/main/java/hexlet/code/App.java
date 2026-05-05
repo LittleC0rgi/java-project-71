@@ -1,12 +1,10 @@
 package hexlet.code;
 
-import hexlet.code.formatter.FormatType;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendiff",
@@ -15,15 +13,17 @@ import java.util.concurrent.Callable;
         version = "1.0")
 public final class App implements Callable<Integer> {
 
-    @Parameters(paramLabel = "filepath1",
+    @Parameters(
+            paramLabel = "filepath1",
             index = "0",
             description = "path to first file")
-    private Path filepath1;
+    private String filepath1;
 
-    @Parameters(paramLabel = "filepath2",
+    @Parameters(
+            paramLabel = "filepath2",
             index = "1",
             description = "path to second file")
-    private Path filepath2;
+    private String filepath2;
 
     @Option(names = {"-f", "--format"},
             description = "output format [default: stylish]",
@@ -34,11 +34,7 @@ public final class App implements Callable<Integer> {
     @Override
     public Integer call() {
         try {
-            var data1 = Parser.getData(filepath1);
-            var data2 = Parser.getData(filepath2);
-            var type = FormatType.from(format);
-
-            String diff = Differ.generate(data1, data2, type);
+            String diff = Differ.generate(filepath1, filepath2, format);
             System.out.println(diff);
 
             return 0;
