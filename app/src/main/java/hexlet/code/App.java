@@ -26,9 +26,10 @@ public final class App implements Callable<Integer> {
     private String filepath2;
 
     @Option(names = {"-f", "--format"},
-            description = "output format [default: stylish]",
-            paramLabel = "format", arity = "1")
-    private String format = "stylish";
+            defaultValue = "stylish",
+            paramLabel = "format",
+            description = "output format [default: ${DEFAULT-VALUE}]")
+    private String format;
 
 
     @Override
