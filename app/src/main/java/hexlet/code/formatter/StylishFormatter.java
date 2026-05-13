@@ -22,6 +22,7 @@ public class StylishFormatter {
             case UNCHANGED -> "    " + node.getKey() + ": " + node.getOldValue();
             case UPDATED -> "  - " + node.getKey() + ": " + node.getOldValue() + "\n"
                     + "  + " + node.getKey() + ": " + node.getNewValue();
+            default -> throw new RuntimeException("Unknown type: '" + node.getType() + "'");
         };
     }
 }
