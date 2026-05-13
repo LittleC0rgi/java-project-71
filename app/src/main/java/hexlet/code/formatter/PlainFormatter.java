@@ -34,6 +34,8 @@ public class PlainFormatter {
                     stringify(node.getOldValue()),
                     stringify(node.getNewValue())
             );
+
+            default -> throw new RuntimeException("Unknown type: '" + node.getType() + "'");
         };
     }
 
