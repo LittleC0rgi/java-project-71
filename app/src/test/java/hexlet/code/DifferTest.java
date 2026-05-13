@@ -23,20 +23,43 @@ class DifferTest {
     }
 
     @Test
-    void testGenerateStylish() throws Exception {
+    void testGenerateStylishFromYaml() throws Exception {
         String result = Differ.generate(
-                getFilePath("file1.json"),
-                getFilePath("file2.json"),
-                "stylish"
+                Path.of("src/test/resources/files/yaml/file1.yaml")
+                        .toAbsolutePath()
+                        .toString(),
+                Path.of("src/test/resources/files/yaml/file2.yaml")
+                        .toAbsolutePath()
+                        .toString()
         );
         assertEquals(readExpected("expected_stylish.txt"), result);
     }
 
     @Test
-    void testGenerateStylishByDefault() throws Exception {
+    void testGenerateStylishFromJson() throws Exception {
         String result = Differ.generate(
                 getFilePath("file1.json"),
                 getFilePath("file2.json")
+        );
+        assertEquals(readExpected("expected_stylish.txt"), result);
+    }
+
+    @Test
+    void testGenerateJson() throws Exception {
+        String result = Differ.generate(
+                getFilePath("file1.json"),
+                getFilePath("file2.json"),
+                "json"
+        );
+        assertEquals(readExpected("expected_json.txt"), result);
+    }
+
+    @Test
+    void testGenerateStylish() throws Exception {
+        String result = Differ.generate(
+                getFilePath("file1.json"),
+                getFilePath("file2.json"),
+                "stylish"
         );
         assertEquals(readExpected("expected_stylish.txt"), result);
     }
@@ -52,13 +75,12 @@ class DifferTest {
     }
 
     @Test
-    void testGenerateJson() throws Exception {
+    void testGenerateStylishByDefault() throws Exception {
         String result = Differ.generate(
                 getFilePath("file1.json"),
-                getFilePath("file2.json"),
-                "json"
+                getFilePath("file2.json")
         );
-        assertEquals(readExpected("expected_json.txt"), result);
+        assertEquals(readExpected("expected_stylish.txt"), result);
     }
 
     @Test
