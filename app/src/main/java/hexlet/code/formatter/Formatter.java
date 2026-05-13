@@ -10,6 +10,7 @@ public class Formatter {
             case STYLISH -> StylishFormatter.format(tree);
             case PLAIN -> PlainFormatter.format(tree);
             case JSON -> JsonFormatter.format(tree);
+            default -> throw new RuntimeException("Unknown type: '" + type + "'");
         };
     }
 }
