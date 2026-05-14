@@ -18,17 +18,18 @@ public class DiffCalculator {
     private static List<DiffNode> buildNode(String key, Map<String, Object> d1, Map<String, Object> d2) {
         boolean in1 = d1.containsKey(key);
         boolean in2 = d2.containsKey(key);
-        if (in1 && !in2) {
-            return List.of(new DiffNode(key, DiffType.REMOVED, d1.get(key), null));
-        }
-        if (!in1 && in2) {
-            return List.of(new DiffNode(key, DiffType.ADDED, null, d2.get(key)));
-        }
+
         Object v1 = d1.get(key);
         Object v2 = d2.get(key);
-        if (Objects.equals(v1, v2)) {
+
+        if (in1 && !in2) {
+            return List.of(new DiffNode(key, DiffType.REMOVED, v1, null));
+        } else if (!in1 && in2) {
+            return List.of(new DiffNode(key, DiffType.ADDED, null, v2));
+        } else if (Objects.equals(v1, v2)) {
             return List.of(new DiffNode(key, DiffType.UNCHANGED, v1, null));
+        } else {
+            return List.of(new DiffNode(key, DiffType.UPDATED, v1, v2));
         }
-        return List.of(new DiffNode(key, DiffType.UPDATED, v1, v2));
     }
 }
