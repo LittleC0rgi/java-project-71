@@ -11,11 +11,11 @@ public class Parser {
         return mapper.readValue(data, Map.class);
     }
 
-    private static ObjectMapper getMapper(String format) {
-        if (format.equals("yaml") || format.equals("yml")) {
-            return new ObjectMapper(new YAMLFactory());
-        }
-
-        return new ObjectMapper();
+    private static ObjectMapper getMapper(String format) throws Exception {
+        return switch (format) {
+            case "yaml", "yml" -> new ObjectMapper(new YAMLFactory());
+            case "json" -> new ObjectMapper();
+            default -> throw new Exception("Unknown format: '" + format + "'");
+        };
     }
 }
