@@ -26,20 +26,20 @@ public class JsonFormatter {
         switch (node.getType()) {
             case ADDED -> {
                 obj.put("status", "added");
-                putValue(obj, "value", node.getNewValue());
+                obj.set("value", MAPPER.valueToTree(node.getNewValue()));
             }
             case REMOVED -> {
                 obj.put("status", "removed");
-                putValue(obj, "value", node.getOldValue());
+                obj.set("value", MAPPER.valueToTree(node.getOldValue()));
             }
             case UNCHANGED -> {
                 obj.put("status", "unchanged");
-                putValue(obj, "value", node.getOldValue());
+                obj.set("value", MAPPER.valueToTree(node.getOldValue()));
             }
             case UPDATED -> {
                 obj.put("status", "updated");
-                putValue(obj, "oldValue", node.getOldValue());
-                putValue(obj, "newValue", node.getNewValue());
+                obj.set("oldValue", MAPPER.valueToTree(node.getOldValue()));
+                obj.set("newValue", MAPPER.valueToTree(node.getNewValue()));
             }
             default -> throw new IllegalStateException(
                     "Unexpected node type: " + node.getType()
